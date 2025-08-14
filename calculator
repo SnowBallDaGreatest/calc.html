@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Button Calculator</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+	<style>
+		body
+		{
+			font-family:  "Gamja Flower", sans-serif;
+			background: #012231;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			margin: 0;
+		}
+		.calculator
+		{
+			background: #001118;
+			padding: 20px;
+			border-radius: 20px;
+			box-shadow: 0px 0px 15px rgba(0, 0, 0,0.4);
+		}
+		.display
+		{
+			background: #013349;
+			color: #82C8E5;
+			font-size: 2em;
+			padding: 15px;
+			border-radius: 5px;
+			text-align: right;
+			margin-bottom: 10px;
+		}
+		.buttons
+		{
+			display: grid;
+			grid-template-columns: repeat(4, 60px);
+			gap: 10px;
+		}
+		button
+		{
+			padding: 15px;
+			font-family: "Gamja Flower", sans-serif;;
+			font-size: 1.5em;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			background: #014462;
+			color: #82C8E5;
+			transition: background 0.2s;
+		}
+		button:hover
+		{
+			background: #03070d;
+		}
+		.operator
+		{
+			background: #02557a;
+		}
+		.operator:hover
+		{
+			background: #235284;
+		}
+		.equal
+		{
+			background: #091727;
+		}
+		.equal:hover
+		{
+			background: #012742;
+		}
+		.clear
+		{
+			background: #091727;
+		}
+		.clear:hover
+		{
+			background: #012742;
+		}
+	</style>
+</head>
+<body>
+	<div class="calculator">
+		<div class="display" id="display">0</div>
+		<div class="buttons">
+			<button class="clear" onclick="clearDisplay()">C</button>
+			<button onclick="appendValue('/')"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#82C8E5"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7 12H17" stroke="#82c8e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 8.01001L12 8.00001" stroke="#82c8e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 16.01L12 16" stroke="#82c8e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg></button>
+			<button onclick="appendValue('%')">%</button>
+			<button onclick="appendValue('-')">-</button>			
+			<button onclick="appendValue('7')">7</button>
+			<button onclick="appendValue('8')">8</button>
+			<button onclick="appendValue('9')">9</button>
+			<button onclick="appendValue('*')">x</button>
+			<button onclick="appendValue('4')">4</button>
+			<button onclick="appendValue('5')">5</button>
+			<button onclick="appendValue('6')">6</button>
+			<button onclick="appendValue('+')">+</button>
+			<button onclick="appendValue('1')">1</button>
+			<button onclick="appendValue('2')">2</button>
+			<button onclick="appendValue('3')">3</button>
+			<button onclick="appendValue('.')">.</button>
+			<button onclick="appendValue('0')">0</button>
+			<button class="equal" onclick="calculateResult()" style="grid-column: span 3;">=</button>
+		</div>
+	</div>
+	<script>
+		let display = document.getElementById("display");
+		function appendValue(val)
+		{
+			if (display.textContent=== "0")
+			{
+				display.textContent = val;
+			}
+			else
+			{
+				display.textContent += val;
+			}
+		}
+		function clearDisplay()
+		{
+			display.textContent = "0";
+		}
+		function calculateResult()
+		{
+			let expression = display.textContent;
+			expression = expression.replace(/(\d+(\.\d+)?)%/g, "($1/100)");
+			try
+			{
+				display.textContent = eval (expression);
+			}
+			catch
+			{
+				display.textContent = "Error";
+			}
+		}
+	</script>
+</body>
